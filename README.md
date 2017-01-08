@@ -2,5 +2,5 @@
 This is a simle gui for espeack
 
 # Dependency
-* espeack
+* eSpeak
 * tkinter
