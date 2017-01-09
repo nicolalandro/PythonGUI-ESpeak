@@ -3,6 +3,7 @@ import os
 from tkinter import *
 
 # import os  # Serve per la riga di comando
+from Speaker import speack
 
 root = Tk()
 root.title('Simple Espeack')
@@ -20,18 +21,7 @@ textArea1.pack()
 
 
 def callback():
-    if checkValue.get() == 1:
-        uno = 'espeak -v mb-it4 "'
-    else:
-        uno = 'espeak -v it "'
-    due = textArea1.get("1.0", END)
-    tre = '"'
-
-    discorso = uno + due + tre
-    discorso = discorso.encode("utf8")
-
-    os.system(discorso)
-
+    speack(textArea1.get("1.0", END), checkValue.get())
 
 button1 = Button(root, text="Speak", command=callback)
 button1.pack()
