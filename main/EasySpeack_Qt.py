@@ -1,5 +1,5 @@
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
 
 from Speaker import speack
 
@@ -18,11 +18,11 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
 
         self.resize(350, 250)
-        self.setWindowTitle('EasySpeack')
+        self.setWindowTitle('EasySpeak')
 
         cWidget = QtGui.QWidget(self)
 
-        grid = QtGui.QGridLayout(cWidget)  # dichiarazione della griglia
+        grid = QtGui.QGridLayout(cWidget)
 
         vBox = QtGui.QVBoxLayout()
         self.radio1 = QtGui.QRadioButton("it", cWidget)
@@ -32,9 +32,9 @@ class MainWindow(QtGui.QMainWindow):
         vBox.addWidget(self.radio2)
 
         vBox2 = QtGui.QVBoxLayout()
-        buttonSpeack = QtGui.QPushButton("Speack")
-        buttonSpeack.clicked.connect(self.click_speack)
-        vBox2.addWidget(buttonSpeack)
+        buttonSpeak = QtGui.QPushButton("Speak")
+        buttonSpeak.clicked.connect(self.click_speack)
+        vBox2.addWidget(buttonSpeak)
 
         self.textEdit = QtGui.QTextEdit(cWidget)
 
