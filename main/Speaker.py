@@ -10,6 +10,6 @@ def speack(string, language):
     tre = '"'
 
     discorso = uno + due + tre
-    discorso = discorso#encode("utf8")
+    discorso = discorso
 
     os.system(discorso)
