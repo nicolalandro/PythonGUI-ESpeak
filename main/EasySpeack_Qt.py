@@ -1,6 +1,8 @@
 import sys
 from PyQt4 import QtGui
 
+from PyQt4.QtGui import QFileDialog
+
 from Speaker import speack
 
 
@@ -10,8 +12,11 @@ class MainWindow(QtGui.QMainWindow):
             voice = 0
         else:
             voice = 1
-        string = self.textEdit.toPlainText().toUtf8().data()
+        string = self.fileNameTextEdit.toPlainText().toUtf8().data()
         speack(string, voice)
+
+    def click_select_txt(self):
+        self.fileNameTextEdit.setText(QFileDialog.getOpenFileName())
 
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
@@ -35,11 +40,23 @@ class MainWindow(QtGui.QMainWindow):
         buttonSpeak.clicked.connect(self.click_speack)
         vBoxSpeach.addWidget(buttonSpeak)
 
+        vBoxSelectTxt = QtGui.QVBoxLayout()
+        button_select_firmware = QtGui.QPushButton("Select txt file")
+        button_select_firmware.clicked.connect(self.click_select_txt)
+        vBoxSelectTxt.addWidget(button_select_firmware)
+
+        self.fileNameTextEdit = QtGui.QTextEdit(cWidget)
+        self.fileNameTextEdit.setMaximumHeight(30)
+
         self.textEdit = QtGui.QTextEdit(cWidget)
 
         grid.addLayout(vBoxSelectSpeachType, 1, 0)
         grid.addLayout(vBoxSpeach, 1, 1)
-        grid.addWidget(self.textEdit, 2, 0, 1, 2)
+
+        grid.addLayout(vBoxSelectTxt, 2, 1)
+        grid.addWidget(self.fileNameTextEdit, 2, 0)
+
+        grid.addWidget(self.textEdit, 3, 0, 1, 2)
 
         cWidget.setLayout(grid)
         self.setCentralWidget(cWidget)
