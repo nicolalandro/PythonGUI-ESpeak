@@ -23,22 +23,22 @@ class MainWindow(QtGui.QMainWindow):
 
         grid = QtGui.QGridLayout(cWidget)
 
-        vBox = QtGui.QVBoxLayout()
+        vBoxSelectSpeachType = QtGui.QVBoxLayout()
         self.radio1 = QtGui.QRadioButton("simple_google_tts", cWidget)
         self.radio2 = QtGui.QRadioButton("espeach", cWidget)
         self.radio1.setChecked(True)
-        vBox.addWidget(self.radio1)
-        vBox.addWidget(self.radio2)
+        vBoxSelectSpeachType.addWidget(self.radio1)
+        vBoxSelectSpeachType.addWidget(self.radio2)
 
-        vBox2 = QtGui.QVBoxLayout()
+        vBoxSpeach = QtGui.QVBoxLayout()
         buttonSpeak = QtGui.QPushButton("Speak")
         buttonSpeak.clicked.connect(self.click_speack)
-        vBox2.addWidget(buttonSpeak)
+        vBoxSpeach.addWidget(buttonSpeak)
 
         self.textEdit = QtGui.QTextEdit(cWidget)
 
-        grid.addLayout(vBox, 1, 0)
-        grid.addLayout(vBox2, 1, 1)
+        grid.addLayout(vBoxSelectSpeachType, 1, 0)
+        grid.addLayout(vBoxSpeach, 1, 1)
         grid.addWidget(self.textEdit, 2, 0, 1, 2)
 
         cWidget.setLayout(grid)
