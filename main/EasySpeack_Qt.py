@@ -34,12 +34,13 @@ class MainWindow(QtGui.QMainWindow):
         speack(string, voice)
 
     def click_speack_from_file(self):
-        if self.radio1.isChecked():
-            voice = 0
-        else:
-            voice = 1
-        string = self.fileNameTextEdit.toPlainText().toUtf8().data()
-        speack_from_file(string, voice)
+        if(not(self.fileNameTextEdit.toPlainText().isEmpty())):
+            if self.radio1.isChecked():
+                voice = 0
+            else:
+                voice = 1
+            string = self.fileNameTextEdit.toPlainText().toUtf8().data()
+            speack_from_file(string, voice)
 
     def click_select_txt(self):
         self.fileNameTextEdit.setText(QFileDialog.getOpenFileName())
