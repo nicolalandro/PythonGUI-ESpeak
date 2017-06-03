@@ -9,14 +9,21 @@ from Speaker import speack, speack_from_file
 class MainWindow(QtGui.QMainWindow):
     def click_check_box(self):
         if (self.checkBox.isChecked()):
-            print "ceck"
             self.buttonSpeak.setEnabled(False)
+            self.textEdit.setDisabled(True)
+
             self.buttonSpeakFromFile.setEnabled(True)
+            self.buttonSelectTxt.setEnabled(True)
+            self.fileNameTextEdit.setDisabled(False)
 
         else:
-            print "not"
             self.buttonSpeak.setEnabled(True)
+            self.textEdit.setDisabled(False)
+
             self.buttonSpeakFromFile.setEnabled(False)
+            self.buttonSelectTxt.setEnabled(False)
+            self.fileNameTextEdit.setDisabled(True)
+
 
     def click_speack(self):
         if self.radio1.isChecked():
@@ -66,10 +73,10 @@ class MainWindow(QtGui.QMainWindow):
         vBoxSpeach.addWidget(self.buttonSpeak)
         vBoxSpeach.addWidget(self.buttonSpeakFromFile)
 
-        self.vBoxSelectTxt = QtGui.QVBoxLayout()
-        buttonSelectTxt = QtGui.QPushButton("Select txt file")
-        buttonSelectTxt.clicked.connect(self.click_select_txt)
-        self.vBoxSelectTxt.addWidget(buttonSelectTxt)
+        vBoxSelectTxt = QtGui.QVBoxLayout()
+        self.buttonSelectTxt = QtGui.QPushButton("Select txt file")
+        self.buttonSelectTxt.clicked.connect(self.click_select_txt)
+        vBoxSelectTxt.addWidget(self.buttonSelectTxt)
 
         self.fileNameTextEdit = QtGui.QTextEdit(cWidget)
         self.fileNameTextEdit.setMaximumHeight(30)
@@ -79,13 +86,21 @@ class MainWindow(QtGui.QMainWindow):
         grid.addLayout(vBoxSelectSpeachType, 1, 0)
         grid.addLayout(vBoxSpeach, 1, 1)
 
-        grid.addLayout(self.vBoxSelectTxt, 2, 1)
+        grid.addLayout(vBoxSelectTxt, 2, 1)
         grid.addWidget(self.fileNameTextEdit, 2, 0)
 
         grid.addWidget(self.textEdit, 3, 0, 1, 2)
 
         cWidget.setLayout(grid)
         self.setCentralWidget(cWidget)
+
+        #state
+        self.buttonSpeak.setEnabled(True)
+        self.textEdit.setDisabled(False)
+
+        self.buttonSpeakFromFile.setEnabled(False)
+        self.buttonSelectTxt.setEnabled(False)
+        self.fileNameTextEdit.setDisabled(True)
 
 
 app = QtGui.QApplication(sys.argv)
