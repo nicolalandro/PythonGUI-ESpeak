@@ -3,7 +3,7 @@ from PyQt4 import QtGui
 
 from PyQt4.QtGui import QFileDialog
 
-from Speaker import speack
+from Speaker import speack, speack_from_file
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -12,8 +12,16 @@ class MainWindow(QtGui.QMainWindow):
             voice = 0
         else:
             voice = 1
-        string = self.fileNameTextEdit.toPlainText().toUtf8().data()
+        string = self.textEdit.toPlainText().toUtf8().data()
         speack(string, voice)
+
+    def click_speack_from_file(self):
+        if self.radio1.isChecked():
+            voice = 0
+        else:
+            voice = 1
+        string = self.fileNameTextEdit.toPlainText().toUtf8().data()
+        speack_from_file(string, voice)
 
     def click_select_txt(self):
         self.fileNameTextEdit.setText(QFileDialog.getOpenFileName())
@@ -38,12 +46,15 @@ class MainWindow(QtGui.QMainWindow):
         vBoxSpeach = QtGui.QVBoxLayout()
         buttonSpeak = QtGui.QPushButton("Speak")
         buttonSpeak.clicked.connect(self.click_speack)
+        buttonSpeakFromFile = QtGui.QPushButton("Speak From File")
+        buttonSpeakFromFile.clicked.connect(self.click_speack_from_file)
         vBoxSpeach.addWidget(buttonSpeak)
+        vBoxSpeach.addWidget(buttonSpeakFromFile)
 
         vBoxSelectTxt = QtGui.QVBoxLayout()
-        button_select_firmware = QtGui.QPushButton("Select txt file")
-        button_select_firmware.clicked.connect(self.click_select_txt)
-        vBoxSelectTxt.addWidget(button_select_firmware)
+        buttonSelectTxt = QtGui.QPushButton("Select txt file")
+        buttonSelectTxt.clicked.connect(self.click_select_txt)
+        vBoxSelectTxt.addWidget(buttonSelectTxt)
 
         self.fileNameTextEdit = QtGui.QTextEdit(cWidget)
         self.fileNameTextEdit.setMaximumHeight(30)
