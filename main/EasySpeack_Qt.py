@@ -10,8 +10,7 @@ class MainWindow(QtGui.QMainWindow):
             voice = 0
         else:
             voice = 1
-        string = self.textEdit.toPlainText()
-        string = str(string)
+        string = self.textEdit.toPlainText().toUtf8().data()
         speack(string, voice)
 
     def __init__(self):
@@ -25,8 +24,8 @@ class MainWindow(QtGui.QMainWindow):
         grid = QtGui.QGridLayout(cWidget)
 
         vBox = QtGui.QVBoxLayout()
-        self.radio1 = QtGui.QRadioButton("it", cWidget)
-        self.radio2 = QtGui.QRadioButton("mb-it4", cWidget)
+        self.radio1 = QtGui.QRadioButton("simple_google_tts", cWidget)
+        self.radio2 = QtGui.QRadioButton("espeach", cWidget)
         self.radio1.setChecked(True)
         vBox.addWidget(self.radio1)
         vBox.addWidget(self.radio2)
