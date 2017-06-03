@@ -7,6 +7,12 @@ from Speaker import speack, speack_from_file
 
 
 class MainWindow(QtGui.QMainWindow):
+    def click_check_box(self):
+        if (self.checkBox.isChecked()):
+            print "ceck"
+        else:
+            print "not"
+
     def click_speack(self):
         if self.radio1.isChecked():
             voice = 0
@@ -44,10 +50,14 @@ class MainWindow(QtGui.QMainWindow):
         vBoxSelectSpeachType.addWidget(self.radio2)
 
         vBoxSpeach = QtGui.QVBoxLayout()
+        self.checkBox = QtGui.QCheckBox("Speach From File", cWidget)
+        self.checkBox.setChecked(False)
+        self.checkBox.stateChanged.connect(self.click_check_box)
         buttonSpeak = QtGui.QPushButton("Speak")
         buttonSpeak.clicked.connect(self.click_speack)
         buttonSpeakFromFile = QtGui.QPushButton("Speak From File")
         buttonSpeakFromFile.clicked.connect(self.click_speack_from_file)
+        vBoxSpeach.addWidget(self.checkBox)
         vBoxSpeach.addWidget(buttonSpeak)
         vBoxSpeach.addWidget(buttonSpeakFromFile)
 
