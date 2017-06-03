@@ -14,14 +14,15 @@ def speack(string, language):
 
     os.system(discorso)
 
+
 def speack_from_file(string, language):
-    #espeak -v it -f ciao.txt
     if language == 1:
         uno = 'espeak -v it -f "'
+        tre = '"'
     else:
-        uno = './simple-google-tts/simple_google_tts it "'
+        uno = './simple-google-tts/simple_google_tts it '
+        tre = ''
     due = string
-    tre = '"'
 
     discorso = uno + due + tre
     discorso = discorso
