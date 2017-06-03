@@ -10,8 +10,13 @@ class MainWindow(QtGui.QMainWindow):
     def click_check_box(self):
         if (self.checkBox.isChecked()):
             print "ceck"
+            self.buttonSpeak.setEnabled(False)
+            self.buttonSpeakFromFile.setEnabled(True)
+
         else:
             print "not"
+            self.buttonSpeak.setEnabled(True)
+            self.buttonSpeakFromFile.setEnabled(False)
 
     def click_speack(self):
         if self.radio1.isChecked():
@@ -53,18 +58,18 @@ class MainWindow(QtGui.QMainWindow):
         self.checkBox = QtGui.QCheckBox("Speach From File", cWidget)
         self.checkBox.setChecked(False)
         self.checkBox.stateChanged.connect(self.click_check_box)
-        buttonSpeak = QtGui.QPushButton("Speak")
-        buttonSpeak.clicked.connect(self.click_speack)
-        buttonSpeakFromFile = QtGui.QPushButton("Speak From File")
-        buttonSpeakFromFile.clicked.connect(self.click_speack_from_file)
+        self.buttonSpeak = QtGui.QPushButton("Speak")
+        self.buttonSpeak.clicked.connect(self.click_speack)
+        self.buttonSpeakFromFile = QtGui.QPushButton("Speak From File")
+        self.buttonSpeakFromFile.clicked.connect(self.click_speack_from_file)
         vBoxSpeach.addWidget(self.checkBox)
-        vBoxSpeach.addWidget(buttonSpeak)
-        vBoxSpeach.addWidget(buttonSpeakFromFile)
+        vBoxSpeach.addWidget(self.buttonSpeak)
+        vBoxSpeach.addWidget(self.buttonSpeakFromFile)
 
-        vBoxSelectTxt = QtGui.QVBoxLayout()
+        self.vBoxSelectTxt = QtGui.QVBoxLayout()
         buttonSelectTxt = QtGui.QPushButton("Select txt file")
         buttonSelectTxt.clicked.connect(self.click_select_txt)
-        vBoxSelectTxt.addWidget(buttonSelectTxt)
+        self.vBoxSelectTxt.addWidget(buttonSelectTxt)
 
         self.fileNameTextEdit = QtGui.QTextEdit(cWidget)
         self.fileNameTextEdit.setMaximumHeight(30)
@@ -74,7 +79,7 @@ class MainWindow(QtGui.QMainWindow):
         grid.addLayout(vBoxSelectSpeachType, 1, 0)
         grid.addLayout(vBoxSpeach, 1, 1)
 
-        grid.addLayout(vBoxSelectTxt, 2, 1)
+        grid.addLayout(self.vBoxSelectTxt, 2, 1)
         grid.addWidget(self.fileNameTextEdit, 2, 0)
 
         grid.addWidget(self.textEdit, 3, 0, 1, 2)
