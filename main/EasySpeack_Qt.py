@@ -3,7 +3,7 @@ from PyQt4 import QtGui
 
 from PyQt4.QtGui import QFileDialog
 
-from Speaker import speack, speack_from_file
+from Speaker import speack, speack_from_file, speack_from_pdf
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -40,8 +40,12 @@ class MainWindow(QtGui.QMainWindow):
             else:
                 voice = 1
             string = self.fileNameTextEdit.toPlainText().toUtf8().data()
-            speack_from_file(string, voice)
-
+            if string.endswith('.pdf'):
+                self.textEdit.setPlainText('PDF')
+                speack_from_pdf(string, voice, lambda m: self.textEdit.setPlainText(self.textEdit.toPlainText().toUtf8().data() + '\n' + m))
+            else:
+                speack_from_file(string, voice)    
+    
     def click_select_txt(self):
         self.fileNameTextEdit.setText(QFileDialog.getOpenFileName())
 
@@ -75,7 +79,7 @@ class MainWindow(QtGui.QMainWindow):
         vBoxSpeach.addWidget(self.buttonSpeakFromFile)
 
         vBoxSelectTxt = QtGui.QVBoxLayout()
-        self.buttonSelectTxt = QtGui.QPushButton("Select txt file")
+        self.buttonSelectTxt = QtGui.QPushButton("Select txt/pdf file")
         self.buttonSelectTxt.clicked.connect(self.click_select_txt)
         vBoxSelectTxt.addWidget(self.buttonSelectTxt)
 
@@ -104,7 +108,8 @@ class MainWindow(QtGui.QMainWindow):
         self.fileNameTextEdit.setDisabled(True)
 
 
-app = QtGui.QApplication(sys.argv)
-main = MainWindow()
-main.show()
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    main = MainWindow()
+    main.show()
+    sys.exit(app.exec_())

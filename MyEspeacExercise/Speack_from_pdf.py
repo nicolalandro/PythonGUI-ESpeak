@@ -22,31 +22,31 @@ def speack(string, language):
 
     os.system(discorso)
 
+def speack_from_pdf(path, language):
+    pdf = pyPdf.PdfFileReader(open(path, "rb"))
+    fp = file(path, 'rb')
+    num_of_pages = pdf.getNumPages()
+    for i in range(num_of_pages):
+        inside = [i]
+        pagenos=set(inside)
+        rsrcmgr = PDFResourceManager()
+        retstr = StringIO()
+        codec = 'utf-8'
+        laparams = LAParams()
+        device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+        interpreter = PDFPageInterpreter(rsrcmgr, device)
+        password = ""
+        maxpages = 0
+        caching = True
+        text = ""
+        for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
+            interpreter.process_page(page)
+            text = retstr.getvalue()
+
+            text = text.decode("utf-8","ignore")
+            print('page ' + str(i))
+            speack(text, language)
 
 path = "../test.pdf"
-pdf = pyPdf.PdfFileReader(open(path, "rb"))
-fp = file(path, 'rb')
-num_of_pages = pdf.getNumPages()
-extract = ""
-for i in range(num_of_pages):
-  inside = [i]
-  pagenos=set(inside)
-  rsrcmgr = PDFResourceManager()
-  retstr = StringIO()
-  codec = 'utf-8'
-  laparams = LAParams()
-  device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-  interpreter = PDFPageInterpreter(rsrcmgr, device)
-  password = ""
-  maxpages = 0
-  caching = True
-  text = ""
-  if i >= 0: #i >= 69:
-      for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
-        interpreter.process_page(page)
-        text = retstr.getvalue()
-
-        text = text.decode("ascii","ignore")
-        print('page ' + str(i))
-        speack(text, 0)
+speack_from_pdf(path, 0)
     
