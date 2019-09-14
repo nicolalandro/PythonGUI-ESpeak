@@ -30,8 +30,9 @@ class MainWindow(QtGui.QMainWindow):
             voice = 0
         else:
             voice = 1
+        lang = self.langField.text().toUtf8().data().strip()
         string = self.textEdit.toPlainText().toUtf8().data()
-        speack(string, voice)
+        speack(string, voice, lang)
 
     def click_speack_from_file(self):
         if(not(self.fileNameTextEdit.toPlainText().isEmpty())):
@@ -39,12 +40,13 @@ class MainWindow(QtGui.QMainWindow):
                 voice = 0
             else:
                 voice = 1
+            lang = self.langField.text().toUtf8().data().strip()
             string = self.fileNameTextEdit.toPlainText().toUtf8().data()
             if string.endswith('.pdf'):
                 self.textEdit.setPlainText('PDF')
-                speack_from_pdf(string, voice, lambda m: self.textEdit.setPlainText(self.textEdit.toPlainText().toUtf8().data() + '\n' + m))
+                speack_from_pdf(string, voice, lang,lambda m: self.textEdit.setPlainText(self.textEdit.toPlainText().toUtf8().data() + '\n' + m))
             else:
-                speack_from_file(string, voice)    
+                speack_from_file(string, voice, lang)    
     
     def click_select_txt(self):
         self.fileNameTextEdit.setText(QFileDialog.getOpenFileName())
@@ -70,11 +72,14 @@ class MainWindow(QtGui.QMainWindow):
         self.checkBox = QtGui.QCheckBox("Speach From File", cWidget)
         self.checkBox.setChecked(False)
         self.checkBox.stateChanged.connect(self.click_check_box)
+        self.langField = QtGui.QLineEdit(cWidget)
+        self.langField.setText('it')
         self.buttonSpeak = QtGui.QPushButton("Speak")
         self.buttonSpeak.clicked.connect(self.click_speack)
         self.buttonSpeakFromFile = QtGui.QPushButton("Speak From File")
         self.buttonSpeakFromFile.clicked.connect(self.click_speack_from_file)
         vBoxSpeach.addWidget(self.checkBox)
+        vBoxSpeach.addWidget(self.langField)
         vBoxSpeach.addWidget(self.buttonSpeak)
         vBoxSpeach.addWidget(self.buttonSpeakFromFile)
 

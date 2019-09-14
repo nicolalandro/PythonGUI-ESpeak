@@ -7,11 +7,11 @@ from cStringIO import StringIO
 import os
 
 
-def speack(string, language):
-    if language == 1:
-        uno = 'espeak -v it "'
+def speack(string, speaker, lang='it'):
+    if speaker == 1:
+        uno = 'espeak -v %s "' % lang
     else:
-        uno = './simple-google-tts/simple_google_tts it "'
+        uno = './simple-google-tts/simple_google_tts %s "' % lang
     due = string
     tre = '"'
 
@@ -21,12 +21,12 @@ def speack(string, language):
     os.system(discorso)
 
 
-def speack_from_file(string, language):
-    if language == 1:
-        uno = 'espeak -v it -f "'
+def speack_from_file(string, speaker, lang='it'):
+    if speaker == 1:
+        uno = 'espeak -v %s -f "' % lang
         tre = '"'
     else:
-        uno = './simple-google-tts/simple_google_tts it '
+        uno = './simple-google-tts/simple_google_tts %s ' % lang
         tre = ''
     due = string
 
@@ -35,7 +35,7 @@ def speack_from_file(string, language):
 
     os.system(discorso)
 
-def speack_from_pdf(path, language, print_function):
+def speack_from_pdf(path, speaker, lang, print_function):
     pdf = pyPdf.PdfFileReader(open(path, "rb"))
     fp = file(path, 'rb')
     num_of_pages = pdf.getNumPages()
@@ -58,5 +58,5 @@ def speack_from_pdf(path, language, print_function):
 
             text = text.decode("ascii","ignore")
             print_function('page ' + str(i))
-            speack(text, language)
+            speack(text, speaker, lang)
         
