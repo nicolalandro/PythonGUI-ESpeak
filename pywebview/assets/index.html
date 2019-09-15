@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+	<head>
+<!--  VUE  -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
+<!--  BUEFY  -->
+  <!-- Buefy CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+  <!-- Buefy JavaScript -->
+  <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>  
+<!--  FONTAWESOME  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" 
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="app">
+    <b-navbar class="is-info">
+      <template slot="brand">
+         <b-navbar-item>
+           <i class="fas fa-graduation-cap">NavBar</i>
+        </b-navbar-item>
+      </template>
+    </b-navbar>
+
+    <b-button @click="change()">Click Me</b-button>
+    <p> {{ message }} <p>
+  </div>		
+		<script src="script.js"></script>
+
+	</body>
+</html>
